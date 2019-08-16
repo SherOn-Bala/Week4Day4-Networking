@@ -1,13 +1,10 @@
 package ca.judacribz.week4day4_networking;
 
-import androidx.appcompat.app.ActionBar;
-import androidx.appcompat.app.AppCompatActivity;
-
 import android.os.Bundle;
 import android.widget.ImageView;
 import android.widget.TextView;
-import android.widget.Toast;
-import android.widget.Toolbar;
+
+import androidx.appcompat.app.AppCompatActivity;
 
 import com.bumptech.glide.Glide;
 
@@ -17,7 +14,6 @@ import org.greenrobot.eventbus.ThreadMode;
 
 import ca.judacribz.week4day4_networking.models.GithubProfile;
 import ca.judacribz.week4day4_networking.models.datasource.events.OkHttpGithubResponseEvent;
-import ca.judacribz.week4day4_networking.models.datasource.remote.OkHttpGithubHelper;
 import ca.judacribz.week4day4_networking.models.datasource.remote.OkHttpGithubTask;
 
 public class MainActivity extends AppCompatActivity {
@@ -32,12 +28,12 @@ public class MainActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
+
         tvLogin = findViewById(R.id.tvLogin);
         tvPublicRepos = findViewById(R.id.tvPublicRepos);
         ivAvatar = findViewById(R.id.ivAvatar);
 
-        OkHttpGithubTask githubTask = new OkHttpGithubTask();
-        githubTask.execute();
+        new OkHttpGithubTask().execute();
     }
 
     @Override
@@ -55,6 +51,7 @@ public class MainActivity extends AppCompatActivity {
     @Subscribe(threadMode = ThreadMode.MAIN)
     public void onOkHttpGithubResponseEvent(OkHttpGithubResponseEvent event) {
         GithubProfile githubProfile = event.getGithubProfile();
+
         tvLogin.setText(githubProfile.getLogin());
         tvPublicRepos.setText(String.valueOf(githubProfile.getPublic_repos()));
         Glide.with(this).load(githubProfile.getAvatar_url()).into(ivAvatar);

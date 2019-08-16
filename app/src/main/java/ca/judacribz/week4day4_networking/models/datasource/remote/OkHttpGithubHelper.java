@@ -15,23 +15,20 @@ import ca.judacribz.week4day4_networking.models.GithubRepo;
 import okhttp3.OkHttpClient;
 import okhttp3.Request;
 import okhttp3.Response;
+import okhttp3.ResponseBody;
 import okhttp3.logging.HttpLoggingInterceptor;
+import retrofit2.http.Body;
 
 public class OkHttpGithubHelper {
     private static final String
             GITHUB_USER_URL = "https://api.github.com/users/judacribz",
             GITHUB_USER_REPOS_URL = "https://api.github.com/users/judacribz/repos";
+
+    // Used to convert JSON string of repos to list of GithubRepo Objects
     private static final Type TYPE_GITHUB_REPO_LIST = new TypeToken<ArrayList<GithubRepo>>() {
     }.getType();
 
-    private static Request
-            profileRequest,
-            repoRequest;
-    private static Response
-            profileResponse,
-            reposResponse;
-    private static GithubProfile githubProfile;
-    private static List<GithubRepo> githubRepos;
+    private static Response reposResponse;
 
     private static OkHttpClient getClient() {
         HttpLoggingInterceptor httpLoggingInterceptor = new HttpLoggingInterceptor();
@@ -43,26 +40,13 @@ public class OkHttpGithubHelper {
     }
 
     static GithubProfile getSynchronousOkHttpResponse() throws IOException {
-        Thread t1 = new Thread(new Runnable() {
+        GithubProfile githubProfile = null;
+        ResponseBody proBody, repoBody;
+
+        Thread thread = new Thread(new Runnable() {
             @Override
             public void run() {
-                profileRequest = new Request
-                        .Builder()
-                        .url(GITHUB_USER_URL)
-                        .build();
-
-                try {
-                    profileResponse = getClient().newCall(profileRequest).execute();
-                } catch (IOException e) {
-                    e.printStackTrace();
-                }
-            }
-        });
-
-        Thread t2 = new Thread(new Runnable() {
-            @Override
-            public void run() {
-                repoRequest = new Request
+                Request repoRequest = new Request
                         .Builder()
                         .url(GITHUB_USER_REPOS_URL)
                         .build();
@@ -74,18 +58,31 @@ public class OkHttpGithubHelper {
                 }
             }
         });
+        thread.start();
 
-        t1.start();
-        t2.start();
+        Response profileResponse = getClient().newCall(
+                new Request
+                        .Builder()
+                        .url(GITHUB_USER_URL)
+                        .build()
+        ).execute();
 
         try {
-            t1.join();
-            t2.join();
+            thread.join();
 
-            githubProfile = new Gson().fromJson(profileResponse.body().string(), GithubProfile.class);
-            githubRepos = new Gson().fromJson(reposResponse.body().string(), TYPE_GITHUB_REPO_LIST);
+            // Add github profile json values to github profile object
+            if ((proBody = profileResponse.body()) != null) {
+                githubProfile = new Gson().fromJson(proBody.string(), GithubProfile.class);
 
-            githubProfile.setRepos(githubRepos);
+                /* Add github users repo json values to github repos object list and set it within
+                 * github profile object */
+                if ((repoBody = reposResponse.body()) != null) {
+                    githubProfile.setRepos(new Gson().<List<GithubRepo>>fromJson(
+                            repoBody.string(),
+                            TYPE_GITHUB_REPO_LIST
+                    ));
+                }
+            }
 
         } catch (InterruptedException e) {
             e.printStackTrace();

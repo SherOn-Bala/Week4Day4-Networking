@@ -3,4 +3,6 @@
     <string name="github_avatar">Github Avatar</string>
     <string name="of_repos"># of Repos:</string>
     <string name="github_icon">Github Icon</string>
+    <string name="cnt_app_icon">App Icon</string>
+    <string name="github">GitHub</string>
 </resources>

@@ -4,24 +4,45 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:padding="10dp"
     tools:context=".MainActivity">
+
+    <androidx.appcompat.widget.Toolbar
+        android:id="@+id/toolbar"
+        android:layout_width="match_parent"
+        app:layout_constraintTop_toTopOf="parent"
+        android:background="@color/colorPrimary"
+        android:layout_height="60dp">
+
+        <ImageView
+            android:layout_width="35dp"
+            android:layout_height="match_parent"
+            android:layout_marginEnd="20dp"
+            android:src="@drawable/github"
+            android:contentDescription="@string/cnt_app_icon" />
+
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:gravity="center_vertical"
+            android:textColor="@android:color/white"
+            android:textSize="30sp"
+            android:text="@string/github"/>
+    </androidx.appcompat.widget.Toolbar>
 
 
     <TextView
         android:id="@+id/tvLogin"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_marginBottom="@dimen/in_between"
+        android:layout_margin="@dimen/in_between"
         android:textSize="30sp"
-        app:layout_constraintTop_toTopOf="parent" />
+        app:layout_constraintTop_toBottomOf="@+id/toolbar" />
 
     <ImageView
         android:id="@+id/ivAvatar"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_marginTop="@dimen/in_between"
-        android:layout_marginBottom="@dimen/in_between"
+        android:layout_margin="@dimen/in_between"
         android:contentDescription="@string/github_avatar"
         app:layout_constraintTop_toBottomOf="@id/tvLogin" />
 
@@ -29,8 +50,7 @@
         android:id="@+id/tvPublicReposTitle"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginTop="@dimen/in_between"
-        android:layout_marginEnd="@dimen/in_between"
+        android:layout_margin="@dimen/in_between"
         android:text="@string/of_repos"
         android:textSize="18sp"
         app:layout_constraintStart_toStartOf="parent"
@@ -40,8 +60,7 @@
         android:id="@+id/tvPublicRepos"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
-        android:layout_marginStart="@dimen/in_between"
-        android:layout_marginTop="@dimen/in_between"
+        android:layout_margin="@dimen/in_between"
         android:textSize="18sp"
         android:textStyle="bold"
         app:layout_constraintEnd_toEndOf="parent"
