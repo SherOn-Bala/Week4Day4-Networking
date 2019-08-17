@@ -1,18 +1,21 @@
 <resources>
 
-    <!-- Base application theme. -->
-    <style name="AppTheme" parent="Theme.AppCompat.Light.DarkActionBar">
-        <!-- Customize your theme here. -->
+    <style name="AppTheme" parent="MainTheme">
         <item name="colorPrimary">@color/colorPrimary</item>
         <item name="colorPrimaryDark">@color/colorPrimaryDark</item>
         <item name="colorAccent">@color/colorAccent</item>
     </style>
 
     <style name="MainTheme" parent="Theme.AppCompat.Light.NoActionBar">
-        <item name="colorPrimary">@color/colorPrimary</item>
-        <item name="colorPrimaryDark">@color/colorPrimaryDark</item>
         <item name="android:fontFamily">@font/ubuntu</item>
         <item name="android:textColor">@color/colorPrimary</item>
+        <item name="android:background">@color/colorAccent</item>
+        <item name="android:textViewStyle">@style/TextViewStyle</item>
     </style>
 
+    <style name="TextViewStyle" parent="Widget.AppCompat.TextView.SpinnerItem">
+        <item name="android:background">@color/colorPrimary</item>
+        <item name="android:textColor">@android:color/white</item>
+        <item name="android:padding">@dimen/in_between</item>
+    </style>
 </resources>

@@ -77,7 +77,7 @@ public class OkHttpGithubHelper {
                 /* Add github users repo json values to github repos object list and set it within
                  * github profile object */
                 if ((repoBody = reposResponse.body()) != null) {
-                    githubProfile.setRepos(new Gson().<List<GithubRepo>>fromJson(
+                    githubProfile.setRepos(new Gson().<ArrayList<GithubRepo>>fromJson(
                             repoBody.string(),
                             TYPE_GITHUB_REPO_LIST
                     ));

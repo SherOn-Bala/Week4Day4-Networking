@@ -1,6 +1,9 @@
 package ca.judacribz.week4day4_networking.models;
 
-public class GithubRepo {
+import android.os.Parcel;
+import android.os.Parcelable;
+
+public class GithubRepo implements Parcelable {
     String
             name,
             description,
@@ -15,6 +18,26 @@ public class GithubRepo {
         this.language = language;
         this.size = size;
     }
+
+    protected GithubRepo(Parcel in) {
+        name = in.readString();
+        description = in.readString();
+        created_at = in.readString();
+        language = in.readString();
+        size = in.readInt();
+    }
+
+    public static final Creator<GithubRepo> CREATOR = new Creator<GithubRepo>() {
+        @Override
+        public GithubRepo createFromParcel(Parcel in) {
+            return new GithubRepo(in);
+        }
+
+        @Override
+        public GithubRepo[] newArray(int size) {
+            return new GithubRepo[size];
+        }
+    };
 
     public String getName() {
         return name;
@@ -54,6 +77,20 @@ public class GithubRepo {
 
     public void setSize(int size) {
         this.size = size;
+    }
+
+    @Override
+    public int describeContents() {
+        return 0;
+    }
+
+    @Override
+    public void writeToParcel(Parcel parcel, int i) {
+        parcel.writeString(name);
+        parcel.writeString(description);
+        parcel.writeString(created_at);
+        parcel.writeString(language);
+        parcel.writeInt(size);
     }
 }
 

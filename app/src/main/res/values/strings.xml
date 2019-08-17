@@ -1,8 +1,15 @@
 <resources>
     <string name="app_name">Week4Day4-Networking</string>
-    <string name="github_avatar">Github Avatar</string>
-    <string name="of_repos"># of Repos:</string>
-    <string name="github_icon">Github Icon</string>
+
     <string name="cnt_app_icon">App Icon</string>
+
     <string name="github">GitHub</string>
+    <string name="github_avatar">Github Avatar</string>
+    <string name="github_icon">Github Icon</string>
+    <string name="of_repos"># of Repos:</string>
+    <string name="repos">Repos</string>
+    <string name="size_s">Size: %s</string>
+    <string name="language_s">Language: %s</string>
+    <string name="created_at_s">Created At: %s</string>
+    <string name="na">N/A</string>
 </resources>

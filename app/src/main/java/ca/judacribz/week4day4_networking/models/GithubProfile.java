@@ -1,5 +1,6 @@
 package ca.judacribz.week4day4_networking.models;
 
+import java.util.ArrayList;
 import java.util.List;
 
 public class GithubProfile {
@@ -8,7 +9,7 @@ public class GithubProfile {
             avatar_url;
     int public_repos;
 
-    List<GithubRepo> repos;
+    ArrayList<GithubRepo> repos;
 
     public GithubProfile(String login, String avatar_url, int public_repos) {
         this.login = login;
@@ -40,11 +41,11 @@ public class GithubProfile {
         this.public_repos = public_repos;
     }
 
-    public List<GithubRepo> getRepos() {
+    public ArrayList<GithubRepo> getRepos() {
         return repos;
     }
 
-    public void setRepos(List<GithubRepo> repos) {
+    public void setRepos(ArrayList<GithubRepo> repos) {
         this.repos = repos;
     }
 }
